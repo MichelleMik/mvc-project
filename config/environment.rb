@@ -1,0 +1,6 @@
+require_relative '../models/restaurant.rb'
+require_relative '../models/cuisine-type.rb'
+require_relative '../views/cuisine-types/new.rb'
+require_relative '../views/restaurants/new.rb'
+require_relative '../controllers/cuisine-type-controller.rb'
+require_relative '../controllers/restaurant_controller.rb'
