@@ -27,7 +27,3 @@ class CuisineType
 end
 
 
-# breakfast = CuisineType.new('Breakfast')
-# puts breakfast.name
-# breakfast.add_restaurant('Dennys')
-# puts breakfast.restaurants

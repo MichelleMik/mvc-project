@@ -1,21 +1,34 @@
 class Restaurant
-  attr_accessor :name, :location, :rating
-  attr_reader :cuisine_type
+  attr_accessor :name, :location, :cuisine_type
+  #attr_reader  :rating
   
   @@restaurants = []
 
-  def initialize(restaurant)
-    @name = restaurant
+  def initialize(name,cuisine_type)
+    @name = name
     @@restaurants << self
+    self.cuisine_type = cuisine_type
+   # @cuisine_type.restaurants.push(self)
+    cuisine_type.add_restaurant(self)
+   # @rating = "none yet"
   end
 
   def self.all
     @@restaurants
   end
 
-  def cuisine_type=(cuisine_type)
-    @cuisine_type = cuisine_type
+  def rating=(rating)
+    @rating = rating
   end
+
+  def rating
+    @rating
+  end
+
+
+  # def cuisine_type=(cuisine_type)
+  #   @cuisine_type = cuisine_type
+  # end
 
   def self.find_by_name(restaurant_name)
     @@restaurants.find {|restaurant| restaurant.name == restaurant_name}
