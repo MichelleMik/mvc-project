@@ -1,5 +1,5 @@
 class Restaurant
-  attr_accessor :name, :location, :cuisine_type
+  attr_accessor :name, :cuisine_type
   #attr_reader  :rating
   
   @@restaurants = []
@@ -8,9 +8,8 @@ class Restaurant
     @name = name
     @@restaurants << self
     self.cuisine_type = cuisine_type
-   # @cuisine_type.restaurants.push(self)
     cuisine_type.add_restaurant(self)
-   # @rating = "none yet"
+   
   end
 
   def self.all
@@ -24,7 +23,13 @@ class Restaurant
   def rating
     @rating
   end
+def location=(location)
+    @location = location
+  end
 
+  def location
+    @location
+  end
 
   # def cuisine_type=(cuisine_type)
   #   @cuisine_type = cuisine_type

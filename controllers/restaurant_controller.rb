@@ -19,6 +19,8 @@ class RestaurantsController
     restaurant = Restaurant.find_by_name(restaurant_name)
     puts "Restaurant: #{restaurant.name}, Cuisine : #{restaurant.cuisine_type.name}"
   end
+
+
         
 end
         
