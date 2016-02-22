@@ -4,3 +4,4 @@ class RestaurantNewView
         restaurant = gets.chomp
     end
 end
+# catscreate a new view file /class for every function

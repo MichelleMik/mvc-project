@@ -1,4 +1,6 @@
 class Restaurant
+  include Databaseable::InstanceMethods
+  extend Databaseable::ClassMethods
   attr_accessor :name, :cuisine_type
   #attr_reader  :rating
   
@@ -9,6 +11,7 @@ class Restaurant
     @@restaurants << self
     self.cuisine_type = cuisine_type
     cuisine_type.add_restaurant(self)
+    #need cuisine type id using sql to link the two tables
    
   end
 
