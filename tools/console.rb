@@ -19,10 +19,11 @@ action = 0
         cuisine_type = controller.show_me_the_form
         controller = CuisineTypeController.new
          cuisine = controller.create(cuisine_type)
+         binding.pry
         controller = RestaurantsController.new
         restaurant_name = controller.show_me_the_form
         controller = RestaurantsController.new
-        controller.create(restaurant_name,cuisine)
+        controller.create(restaurant_name, cuisine.id)
 
        when 'show'
         controller = RestaurantsController.new
@@ -56,13 +57,15 @@ action = 0
             if update_item == 'rating'
               puts "what is new rating?"
               new_rating = gets.chomp
-              restaurant.rating = new_rating.to_i
+              #restaurant.rating = new_rating.to_i
+              new_rating.save
               puts "#{restaurant.name} rating has been updated to: #{restaurant.rating}."
               #Pry.start
             elsif update_item == 'location'
               puts "where is the new location?"
               new_location = gets.chomp
-              restaurant.location = new_location
+              #restaurant.location = new_location
+              new_location.save
                 puts "#{restaurant.name} location has been updated to : #{restaurant.location}."
         end
 
@@ -74,14 +77,6 @@ action = 0
             cuisine_choice = controller.show_recommendation_form
             controller = CuisineTypeController.new
             controller.recommend(cuisine_choice)
-      # cuisine_types = CuisineType.all 
-      #  puts "What type of cuisine are you in the mood for?"
-      # puts "Here are your available options: "
-      # cuisine_types.each {|type| puts type}
-      #   cuisine_choice = gets.chomp
-      #   cuisine_type =CuisineType.find_by_name(cuisine_choice)
-      #   recomendation = cuisine_type.restaurants.sample
-      #   puts recomendation.name
       
 
           end

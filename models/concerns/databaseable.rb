@@ -1,10 +1,11 @@
 module Databaseable
   module ClassMethods
-    def self.table_name
-    self.to_s.downcase.pluralize
+
+    def table_name
+    "#{self.to_s.downcase}s"
   end
 
-  def self.column_names
+  def column_names
     DB[:conn].results_as_hash = true
 
     sql = "pragma table_info('#{table_name}')"
@@ -16,23 +17,33 @@ module Databaseable
     end
     column_names.compact
   end
+  
 
-  def self.find_by_name(name)
+  def all 
+    sql = <<-SQL
+    SELECT * FROM #{table_name}
+    SQL
+    DB[:conn].execute(sql)
+   end
+
+  def find_by_name(name)
+    DB[:conn].results_as_hash = false
     sql = <<-SQL
     SELECT * FROM #{table_name} 
     WHERE name = '#{name}'
     SQL
-    DB[:conn].execute(sql)
+    result = DB[:conn].execute(sql)
+    if result.empty?
+      return nil
+    else
+      attributes = column_names.zip(result.first).to_h
+      new_item = self.new(attributes)
+    end
+     new_item
   end
 
-  def self.all   
-    sql = <<-SQL
-    SELECT * FROM #{table_name} 
-    SQL
-    DB[:conn].execute(sql)
-  end
 
-  def self.find_by(options = {})
+  def find_by(options = {})
     sql = "SELECT * FROM #{table_name} WHERE #{options.keys.first.to_s} = ?"
     DB[:conn].execute(sql,options.values.first)
   end
@@ -53,6 +64,7 @@ end
     (#{col_names_for_insert}) VALUES
     (#{values_for_insert})
     SQL
+    binding.pry
     DB[:conn].execute(sql)
     id_getter = <<-SQL
     SELECT MAX(id) from #{table_name_for_insert}
@@ -72,7 +84,7 @@ end
   def values_for_insert
     values = []
     self.class.column_names.each do |name|
-      values << "'#{send(name)}'" unless send(name).nil?
+      values << "'#{send(name)}'" unless name == 'id'
     end
     values.join(", ")
     end 

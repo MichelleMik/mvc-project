@@ -1,16 +1,17 @@
 class CuisineTypeController
     def show_me_the_form
-      view  = CuisineTypeNewView.new #.rb
+      view  = CuisineTypeNewView.new 
       view.render
     end
     
     def create(cuisine_type)
      if !CuisineType.find_by_name(cuisine_type)
-      cuisine_type = CuisineType.new(cuisine_type)
+        cuisine_type = CuisineType.new(name: cuisine_type)
+        cuisine_type.save
       else
          cuisine_type =CuisineType.find_by_name(cuisine_type)
       end
-      cuisine_type
+      
     end
 
     def list(cuisine_type)
@@ -26,7 +27,7 @@ class CuisineTypeController
       puts "Here are your available options: "
       cuisine_types.each {|type| puts type.name}
         cuisine_choice = gets.chomp
-        #should we use render?
+        
       end
 
     def recommend(cuisine_choice)
