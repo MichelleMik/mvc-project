@@ -5,20 +5,26 @@ class CuisineTypeController
     end
     
     def create(cuisine_type)
-     if !CuisineType.find_by_name(cuisine_type)
-        cuisine_type = CuisineType.new(name: cuisine_type)
-        cuisine_type.save
-      else
-         cuisine_type =CuisineType.find_by_name(cuisine_type)
-      end
-      
+       if !CuisineType.find_by_name(cuisine_type)
+          cuisine_type = CuisineType.new(name: cuisine_type)
+          cuisine_type.save
+       end
+           cuisine_type =CuisineType.find_by_name(cuisine_type) 
     end
 
     def list(cuisine_type)
-      cuisine_type = CuisineType.find_by_name(cuisine_type)
-        cuisine_type.restaurants.each do |restaurant|
-               puts "#{restaurant.name}"
-        end
+      DB[:conn].results_as_hash = true
+      sql = <<-SQL 
+      SELECT restaurants.name FROM restaurants inner join cuisinetypes on 
+      restaurants.cuisinetype_id = cuisinetypes.id 
+      WHERE cuisinetypes.name = ?
+      GROUP BY restaurants.name
+      SQL
+      result = DB[:conn].execute(sql,cuisine_type)
+      result.map do |item|
+         item["name"]
+      end
+      
     end
     
     def show_recommendation_form

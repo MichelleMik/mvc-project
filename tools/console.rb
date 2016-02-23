@@ -23,7 +23,7 @@ action = 0
         controller = RestaurantsController.new
         restaurant_name = controller.show_me_the_form
         controller = RestaurantsController.new
-        controller.create(restaurant_name, cuisine.id)
+        controller.create(restaurant_name, cuisine)
 
        when 'show'
         controller = RestaurantsController.new

@@ -3,10 +3,14 @@ class CuisineType
   include Databaseable::InstanceMethods
   extend Databaseable::ClassMethods
   
- 
-     self.column_names.each do |col|
-        attr_accessor col.to_sym
-     end
+
+  
+  self.column_names.each do |col|
+    attr_accessor col.to_sym
+  end
+  
+  
+
 end
 
 

@@ -20,11 +20,8 @@ class RestaurantsController
   def show(restaurant_name)
     restaurant = Restaurant.find_by_name(restaurant_name)
     binding.pry
-    puts "Restaurant: #{restaurant.name} Cuisine Type : #{restaurant.cuisine_type.name}"
-    
+    puts "Restaurant: #{restaurant.name}"
   end
-
-
         
 end
         

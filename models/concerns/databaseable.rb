@@ -64,7 +64,7 @@ end
     (#{col_names_for_insert}) VALUES
     (#{values_for_insert})
     SQL
-    binding.pry
+    #binding.pry
     DB[:conn].execute(sql)
     id_getter = <<-SQL
     SELECT MAX(id) from #{table_name_for_insert}
